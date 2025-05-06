@@ -1,41 +1,52 @@
+using Marten;
+using Marten.Events;
+using MartenLab.Application.Commands;
+using MartenLab.Core.Projections;
+using MartenLab.Infrastructure.Extensions;
+using Microsoft.AspNetCore.Mvc;
+using Wolverine;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+builder.Services.AddMartenWithDefaults(builder.Configuration);
+builder.Host.UseWolverine(options =>
+{
+    options.Discovery.IncludeAssembly(typeof(RegisterMember).Assembly);
+    options.Policies.AutoApplyTransactions();
+});
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+app.UseSwagger();
+app.UseSwaggerUI();
+
+app.MapPost("/members", async (RegisterMember cmd, IMessageBus bus) =>
 {
-    app.MapOpenApi();
-}
-
-app.UseHttpsRedirection();
-
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
+    try
     {
-        var forecast = Enumerable.Range(1, 5).Select(index =>
-                new WeatherForecast
-                (
-                    DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                    Random.Shared.Next(-20, 55),
-                    summaries[Random.Shared.Next(summaries.Length)]
-                ))
-            .ToArray();
-        return forecast;
-    })
-    .WithName("GetWeatherForecast");
+        var id = await bus.InvokeAsync<Guid>(cmd);
 
-app.Run();
+        return Results.Created($"/members/{id}", new { id });
+    }
+    catch (InvalidOperationException e)
+    {
+        return Results.BadRequest(new { error = e.Message });
+    }
+});
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
+app.MapGet("/members/{id:guid}", async (Guid id, IDocumentSession session) =>
 {
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
+    var member = await session.LoadAsync<MemberState>(id);
+
+    if (member == null)
+    {
+        return Results.NotFound();
+    }
+
+    return Results.Ok(member);
+});
+
+await app.RunAsync();
