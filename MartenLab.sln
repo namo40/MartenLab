@@ -7,6 +7,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B9F76242-336
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "src/MartenLab.AppHost", "src/MartenLab.AppHost\MartenLab.AppHost.csproj", "{AE01DE01-F288-48ED-A239-8595A3D6E580}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MartenLab.ServiceDefaults", "src\MartenLab.ServiceDefaults\MartenLab.ServiceDefaults.csproj", "{1BD98F89-9695-4235-8A57-63B2F21054EE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,8 +22,13 @@ Global
 		{AE01DE01-F288-48ED-A239-8595A3D6E580}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE01DE01-F288-48ED-A239-8595A3D6E580}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE01DE01-F288-48ED-A239-8595A3D6E580}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BD98F89-9695-4235-8A57-63B2F21054EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BD98F89-9695-4235-8A57-63B2F21054EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BD98F89-9695-4235-8A57-63B2F21054EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BD98F89-9695-4235-8A57-63B2F21054EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{AE01DE01-F288-48ED-A239-8595A3D6E580} = {B9F76242-3365-47A8-A3B6-C6B76F358D39}
+		{1BD98F89-9695-4235-8A57-63B2F21054EE} = {B9F76242-3365-47A8-A3B6-C6B76F358D39}
 	EndGlobalSection
 EndGlobal
