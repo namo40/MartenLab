@@ -10,6 +10,11 @@ var api = builder.AddProject<Projects.MartenLab_API>("martenlab-api")
     .WithReference(postgresDb)
     .WithEnvironment("ConnectionStrings__Postgres", postgresDb)
     .WithEnvironment("Jwt__Secret", $"{Guid.NewGuid().ToString()}{Guid.NewGuid().ToString()}")
+    .WithUrlForEndpoint("http", url =>
+    {
+        url.DisplayText = "Swagger UI";
+        url.Url += "/swagger";
+    })
     .WaitFor(postgresDb);
 
 builder.Build().Run();
