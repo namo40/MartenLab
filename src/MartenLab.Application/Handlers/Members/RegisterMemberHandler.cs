@@ -6,12 +6,16 @@ using MartenLab.Core.Projections;
 
 namespace MartenLab.Application.Handlers.Members;
 
-public class RegisterMemberHandler : ICommandHandler<RegisterMember, Guid>
+public class RegisterMemberHandler : ICommandHandler<RegisterMember, string>
 {
-    public async Task<Guid> Handle(RegisterMember command, IDocumentSession session,
+    public async Task<string> Handle(RegisterMember command, IDocumentSession session,
         CancellationToken cancellationToken)
     {
-        var streamId = Guid.NewGuid();
+        var streamId = StreamId<MemberState>.GetStreamId(command.UserId);
+
+        var existing = await session.Events.FetchStreamStateAsync(streamId, cancellationToken);
+        if (existing is not null)
+            throw new InvalidOperationException("already registered");
 
         session.Events.StartStream<MemberState>(streamId, new MemberRegistered(command.UserId, command.Nickname));
 

@@ -8,7 +8,7 @@ public class AccessTokenInfo
 
 public class MemberState
 {
-    public Guid Id { get; set; }
+    public string Id { get; set; } = string.Empty;
     public string UserId { get; set; } = string.Empty;
     public string Nickname { get; set; } = string.Empty;
     public AccessTokenInfo? Token { get; set; }

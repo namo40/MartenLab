@@ -21,7 +21,6 @@ public class GetMemberByUserIdHandler : IQueryHandler<GetMemberByUserId, MemberD
 
         return new()
         {
-            Id = user.Id,
             UserId = user.UserId,
             Nickname = user.Nickname,
             Token = user.Token is null

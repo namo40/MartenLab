@@ -1,4 +1,5 @@
 ﻿using Marten;
+using Marten.Events;
 using Marten.Events.Daemon.Resiliency;
 using Marten.Events.Projections;
 using MartenLab.Core.Events;
@@ -22,6 +23,7 @@ public static class MartenConfig
                 options.Connection(connStr);
                 options.DatabaseSchemaName = "public";
                 options.AutoCreateSchemaObjects = Weasel.Core.AutoCreate.All;
+                options.Events.StreamIdentity = StreamIdentity.AsString;
 
                 options.Projections.Add<MemberIndexProjection>(ProjectionLifecycle.Inline);
                 options.Projections.Add<MemberProjection>(ProjectionLifecycle.Async);

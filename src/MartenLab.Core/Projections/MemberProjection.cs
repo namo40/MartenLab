@@ -9,7 +9,7 @@ public class MemberProjection : SingleStreamProjection<MemberState>
     public MemberState Create(IEvent<MemberRegistered> e)
         => new()
         {
-            Id = e.StreamId,
+            Id = e.StreamKey!,
             UserId = e.Data.UserId,
             Nickname = e.Data.Nickname
         };
