@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <PackageReference Include="Marten" Version="7.40.2" />
+      <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.9.0" />
       <PackageReference Include="WolverineFx" Version="3.13.0" />
     </ItemGroup>
 

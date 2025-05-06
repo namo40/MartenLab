@@ -9,6 +9,7 @@ var postgresDb = postgres.AddDatabase("martenlab");
 var api = builder.AddProject<Projects.MartenLab_API>("martenlab-api")
     .WithReference(postgresDb)
     .WithEnvironment("ConnectionStrings__Postgres", postgresDb)
+    .WithEnvironment("Jwt__Secret", $"{Guid.NewGuid().ToString()}{Guid.NewGuid().ToString()}")
     .WaitFor(postgresDb);
 
 builder.Build().Run();

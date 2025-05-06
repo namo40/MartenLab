@@ -2,7 +2,7 @@
 
 namespace MartenLab.Application.Common;
 
-public interface ICommand<TResponse>;
+public interface ICommand<out TResponse>;
 
 public interface ICommandHandler<in TCommand, TResponse>
     where TCommand : ICommand<TResponse>

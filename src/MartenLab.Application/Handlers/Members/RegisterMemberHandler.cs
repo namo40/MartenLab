@@ -1,10 +1,10 @@
 ﻿using Marten;
-using MartenLab.Application.Commands;
+using MartenLab.Application.Commands.Members;
 using MartenLab.Application.Common;
 using MartenLab.Core.Events;
 using MartenLab.Core.Projections;
 
-namespace MartenLab.Application.Handlers;
+namespace MartenLab.Application.Handlers.Members;
 
 public class RegisterMemberHandler : ICommandHandler<RegisterMember, Guid>
 {

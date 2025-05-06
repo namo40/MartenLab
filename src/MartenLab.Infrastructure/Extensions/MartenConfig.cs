@@ -24,6 +24,7 @@ public static class MartenConfig
                 options.AutoCreateSchemaObjects = Weasel.Core.AutoCreate.All;
 
                 options.Projections.Add<MemberIndexProjection>(ProjectionLifecycle.Inline);
+                options.Projections.Add<MemberProjection>(ProjectionLifecycle.Async);
                 options.Events.AddEventType<MemberRegistered>();
 
                 options.Schema.For<MemberIndex>()
