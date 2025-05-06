@@ -1,9 +1,8 @@
 using Marten;
-using Marten.Events;
 using MartenLab.Application.Commands;
+using MartenLab.Application.Common;
 using MartenLab.Core.Projections;
 using MartenLab.Infrastructure.Extensions;
-using Microsoft.AspNetCore.Mvc;
 using Wolverine;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,7 +26,7 @@ app.MapPost("/members", async (RegisterMember cmd, IMessageBus bus) =>
 {
     try
     {
-        var id = await bus.InvokeAsync<Guid>(cmd);
+        var id = await bus.CommandAsync(cmd);
 
         return Results.Created($"/members/{id}", new { id });
     }

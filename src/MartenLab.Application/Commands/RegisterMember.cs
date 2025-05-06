@@ -1,3 +1,5 @@
-﻿namespace MartenLab.Application.Commands;
+﻿using MartenLab.Application.Common;
 
-public record RegisterMember(string UserId, string Nickname);
+namespace MartenLab.Application.Commands;
+
+public record RegisterMember(string UserId, string Nickname) : ICommand<Guid>;
