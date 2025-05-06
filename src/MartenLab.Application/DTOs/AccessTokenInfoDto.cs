@@ -2,6 +2,6 @@
 
 public class AccessTokenInfoDto
 {
-    public string Token { get; init; }
+    public string Token { get; init; } = string.Empty;
     public DateTime ExpiresAt { get; init; }
 }

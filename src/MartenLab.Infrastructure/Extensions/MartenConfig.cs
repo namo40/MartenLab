@@ -27,6 +27,9 @@ public static class MartenConfig
                 options.Projections.Add<MemberProjection>(ProjectionLifecycle.Async);
                 options.Events.AddEventType<MemberRegistered>();
 
+                options.Schema.For<MemberState>()
+                    .Index(x => x.UserId);
+
                 options.Schema.For<MemberIndex>()
                     .UniqueIndex(x => x.UserId)
                     .UniqueIndex(x => x.Nickname);
